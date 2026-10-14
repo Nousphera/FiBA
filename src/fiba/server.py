@@ -1,3 +1,4 @@
+from .runtime import cache_path
 # Modified for the FiBA standalone release, 2026-10-15; see PROVENANCE.md.
 import torch
 import collections
@@ -17,7 +18,7 @@ def get_dataset_poisoned(client_id, run_id, train):
 	else:
 		dataset_id = 'eval'
 
-	file_path = f'../attack_data/{run_id}-{client_id}-{dataset_id}'
+	file_path = cache_path(f'attack_data/{run_id}-{client_id}-{dataset_id}')
 	try:
 		with open(file_path, 'rb') as f:
 			return pickle.load(f)
@@ -55,7 +56,7 @@ class Server(fl.server.Server):
 			self.strategy = AggregationStrategyAvg(
 				min_available_clients=self.num_clients,
 				fraction_fit=self.participation,
-				min_fit_clients=int(self.participation*self.num_clients),
+				min_fit_clients=max(1,int(self.participation*self.num_clients)),
 				fraction_evaluate=0.0,
 				min_evaluate_clients=0,
 				evaluate_fn=self.get_evaluation_fn(),
@@ -66,7 +67,7 @@ class Server(fl.server.Server):
 			self.strategy = AggregationStrategyMedian(
 				min_available_clients=self.num_clients,
 				fraction_fit=self.participation,
-				min_fit_clients=int(self.participation*self.num_clients),
+				min_fit_clients=max(1,int(self.participation*self.num_clients)),
 				fraction_evaluate=0.0,
 				min_evaluate_clients=0,
 				evaluate_fn=self.get_evaluation_fn(),
@@ -77,7 +78,7 @@ class Server(fl.server.Server):
 			self.strategy = AggregationStrategyTrimmedMean(
 				min_available_clients=self.num_clients,
 				fraction_fit=self.participation,
-				min_fit_clients=int(self.participation*self.num_clients),
+				min_fit_clients=max(1,int(self.participation*self.num_clients)),
 				fraction_evaluate=0.0,
 				min_evaluate_clients=0,
 				evaluate_fn=self.get_evaluation_fn(),
@@ -88,7 +89,7 @@ class Server(fl.server.Server):
 			self.strategy = AggregationStrategyFoolsGold(
 				min_available_clients=self.num_clients,
 				fraction_fit=self.participation,
-				min_fit_clients=int(self.participation*self.num_clients),
+				min_fit_clients=max(1,int(self.participation*self.num_clients)),
 				fraction_evaluate=0.0,
 				min_evaluate_clients=0,
 				evaluate_fn=self.get_evaluation_fn(),
@@ -99,7 +100,7 @@ class Server(fl.server.Server):
 			self.strategy = AggregationStrategyKrum(
 				min_available_clients=self.num_clients,
 				fraction_fit=self.participation,
-				min_fit_clients=int(self.participation*self.num_clients),
+				min_fit_clients=max(1,int(self.participation*self.num_clients)),
 				fraction_evaluate=0.0,
 				min_evaluate_clients=0,
 				evaluate_fn=self.get_evaluation_fn(),
@@ -143,7 +144,7 @@ class Server(fl.server.Server):
 			self.model.compile(lr=1e-2)
 			metrics = self.model.evaluate(ds=self.ds_test, attack_setting=self.attack_setting, verbose=False, poisoned_eval=poisoned_eval)
 			if rnd == 100:
-				torch.save(self.model.state_dict(), f'{self.run_id}.th')
+				torch.save(self.model.state_dict(), cache_path(f'{self.run_id}.th'))
 			del self.model; torch.cuda.empty_cache();
 			return metrics[0], {"accuracy":metrics[1], "class-acc": str(metrics[2].tolist()), "asr": metrics[3]}
 

@@ -35,3 +35,28 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.flwr.app]
+publisher = "nousphera"
+
+[tool.flwr.app.components]
+serverapp = "fiba.server_app:app"
+clientapp = "fiba.client_app:app"
+
+[tool.flwr.app.config]
+options = "--dataset synthetic --num-clients 2 --num-rounds 2 --local-epochs 1 --batch-size 4 --target-class 1 --attacker-fraction 0.5 --output runs/flower-smoke"
+
+[tool.flwr.federations]
+default = "local-simulation"
+
+[tool.flwr.federations.local-simulation]
+options.num-supernodes = 2
+options.backend.client-resources.num-cpus = 1
+options.backend.client-resources.num-gpus = 0.0
+options.backend.init-args.num-cpus = 1
+
+[tool.flwr.federations.paper]
+options.num-supernodes = 10
+options.backend.client-resources.num-cpus = 1
+options.backend.client-resources.num-gpus = 0.0
+options.backend.init-args.num-cpus = 1

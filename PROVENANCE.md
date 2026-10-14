@@ -63,3 +63,17 @@ package and bounded method/transport behavior. They do not establish reproductio
 of the paper's CIFAR accuracy, ASR, LPIPS, Neural Cleanse, attention or model
 replacement results. The software license does not alter rights in paper/poster
 assets.
+
+
+## Reproducible setup follow-up
+
+Added dataset import/download/validation commands and deterministic file manifests.
+Prepared NPZ files feed the maintained trainer directly. Image labels and shapes
+are validated against fixed dataset class spaces; explicit dataset imports do not
+certify historical order, partitions or benchmark equivalence. Existing source,
+teacher identity and cache qualifications are retained in the linked guides.
+
+Added real Flower ClientApp/ServerApp entry points reusing the maintained core.
+Logical partition IDs determine sampling and persistent local state; evaluated
+global weights and round results are saved. Flower 1.13/Ray 2.10 remain pinned for
+compatibility. See docs/FLOWER_APP.md for single-host simulation limits.

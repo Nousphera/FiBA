@@ -68,7 +68,7 @@ def build_attack(args, attackers):
     return LiraAttack(*common,generator_path=args.lira_generator)
 
 
-def run(args):
+def run(args, *, driver=None, client_id=None):
     import numpy as np
     import torch
     import flwr as fl
@@ -94,7 +94,7 @@ def run(args):
         raise ValueError('--mask-inversion requires --modified-attack')
     if args.distributed and args.attack not in ['steg','wanet']:
         raise ValueError('Distributed triggering is supported for LSB and WaNet only')
-    if args.output.exists() and any(args.output.iterdir()):
+    if client_id is None and args.output.exists() and any(args.output.iterdir()):
         raise ValueError('Output directory is not empty; choose a new run directory')
     torch.set_num_threads(args.threads)
     torch.manual_seed(args.seed)
@@ -117,14 +117,21 @@ def run(args):
     # Runtime cache files in the recovered code use ../ paths. Confine every
     # invocation to its own output/work directory; never use a source checkout.
     work = output/'work'
-    work.mkdir(parents=True)
+    work.mkdir(parents=True, exist_ok=client_id is not None)
     os.environ['TORCH_DATA_DIR'] = str(data_root)
     os.environ['FIBA_DOWNLOAD'] = '1' if args.download else '0'
     previous = Path.cwd()
+    previous_root = os.environ.get("FIBA_RUN_ROOT")
+    os.environ["FIBA_RUN_ROOT"] = str(output)
     try:
-        os.chdir(work)
+        if driver is None:
+            os.chdir(work)
         attack = build_attack(args,attackers)
-        run_id = uuid.uuid4().hex
+        run_id = 'flower' if driver is not None or client_id is not None else uuid.uuid4().hex
+        if client_id is not None:
+            return Client(client_id,args.num_clients,attack,Model,get_data,data_split=args.data_split,
+                skewness=args.skewness,batch_size=args.batch_size,data_name=args.dataset,
+                seed=args.seed,device=args.device,run_id=run_id,m=args.num_clients)
         server = Server(Model,get_data,args.num_rounds,attack,run_id,num_clients=args.num_clients,
             participation=args.participation,batch_size=args.batch_size,data_name=args.dataset,
             num_epochs=args.local_epochs,lr=args.lr,device=args.device,strategy=args.avg_strategy,
@@ -135,6 +142,9 @@ def run(args):
             'config':{k:str(v) if isinstance(v,Path) else v for k,v in vars(args).items()},
             'attackers':attackers,'runtime':{'python':platform.python_version(), 'platform':platform.platform(),
             'torch':torch.__version__, 'flower':fl.__version__, 'numpy':np.__version__, 'device':args.device},'rounds':[]}
+        if driver is not None:
+            from .native_transport import run_native
+            return run_native(driver,server,args.num_rounds,args.num_clients,args.seed,output,report)
         for rnd in range(1,args.num_rounds+1):
             results = []
             before = fl.common.parameters_to_ndarrays(parameters)
@@ -161,6 +171,10 @@ def run(args):
         return report
     finally:
         os.chdir(previous)
+        if previous_root is None:
+            os.environ.pop("FIBA_RUN_ROOT", None)
+        else:
+            os.environ["FIBA_RUN_ROOT"] = previous_root
 
 
 def cli():

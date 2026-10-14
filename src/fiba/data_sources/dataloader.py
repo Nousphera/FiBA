@@ -3,14 +3,27 @@ import torch
 import torchvision
 import numpy as np
 
+from pathlib import Path
+from ..prepared_arrays import image_dataset
+
+
+def prepared_cifar(name, root, train=True, download=False, transform=None):
+    path = Path(os.environ['TORCH_DATA_DIR']) / (name + '.npz')
+    if path.exists():
+        return image_dataset(path, name, train, transform)
+    loader = torchvision.datasets.CIFAR10 if name == 'cifar10' else torchvision.datasets.CIFAR100
+    return loader(root, train=train, download=download, transform=transform)
+
+
+
 def get_cifar10(train_transform=None, test_transform=None):
-	data_train = torchvision.datasets.CIFAR10(os.path.join(os.environ['TORCH_DATA_DIR'],'cifar10'), train=True, download=os.environ.get("FIBA_DOWNLOAD") == "1", transform=train_transform)
-	data_test = torchvision.datasets.CIFAR10(os.path.join(os.environ['TORCH_DATA_DIR'],'cifar10'), train=False, download=False, transform=test_transform)
+	data_train = prepared_cifar("cifar10", os.path.join(os.environ['TORCH_DATA_DIR'],'cifar10'), train=True, download=os.environ.get("FIBA_DOWNLOAD") == "1", transform=train_transform)
+	data_test = prepared_cifar("cifar10", os.path.join(os.environ['TORCH_DATA_DIR'],'cifar10'), train=False, download=False, transform=test_transform)
 	return data_train, data_test, len(data_train.classes), 'CIFAR-10'
 
 def get_cifar100(train_transform=None, test_transform=None):
-	data_train = torchvision.datasets.CIFAR100(os.path.join(os.environ['TORCH_DATA_DIR'],'cifar100'), train=True, download=os.environ.get("FIBA_DOWNLOAD") == "1", transform=train_transform)
-	data_test = torchvision.datasets.CIFAR100(os.path.join(os.environ['TORCH_DATA_DIR'],'cifar100'), train=False, download=False, transform=test_transform)
+	data_train = prepared_cifar("cifar100", os.path.join(os.environ['TORCH_DATA_DIR'],'cifar100'), train=True, download=os.environ.get("FIBA_DOWNLOAD") == "1", transform=train_transform)
+	data_test = prepared_cifar("cifar100", os.path.join(os.environ['TORCH_DATA_DIR'],'cifar100'), train=False, download=False, transform=test_transform)
 	return data_train, data_test, len(data_train.classes), 'CIFAR-100'
 
 def get_svhn(train_transform=None, test_transform=None):

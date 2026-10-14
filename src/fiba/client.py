@@ -1,3 +1,4 @@
+from .runtime import cache_path
 # Modified for the FiBA standalone release, 2026-10-15; see PROVENANCE.md.
 import torch
 import collections
@@ -19,17 +20,17 @@ def rankme(x, normalize=True):
 	return entropy.item()
 
 def save_mask(mask, run_id):
-	os.makedirs(os.path.dirname(f'../masks/{run_id}-attack-mask'), exist_ok=True)
-	with open(f'../masks/{run_id}-attack-mask', 'wb') as outp:  # Overwrites any existing file.
+	os.makedirs(os.path.dirname(cache_path(f'masks/{run_id}-attack-mask')), exist_ok=True)
+	with open(cache_path(f'masks/{run_id}-attack-mask'), 'wb') as outp:  # Overwrites any existing file.
 		pickle.dump(mask, outp, pickle.HIGHEST_PROTOCOL)
 
 def save_object(obj, attacker_id, run_id, attacker):
-	os.makedirs(os.path.dirname(f'../attackers/{run_id}-{attacker_id}-{"attacker" if attacker else "client"}'), exist_ok=True)
-	with open(f'../attackers/{run_id}-{attacker_id}-{"attacker" if attacker else "client"}', 'wb') as outp:  # Overwrites any existing file.
+	os.makedirs(os.path.dirname(cache_path(f'attackers/{run_id}-{attacker_id}-{"attacker" if attacker else "client"}')), exist_ok=True)
+	with open(cache_path(f'attackers/{run_id}-{attacker_id}-{"attacker" if attacker else "client"}'), 'wb') as outp:  # Overwrites any existing file.
 		pickle.dump(obj, outp, pickle.HIGHEST_PROTOCOL)
 
 def get_prev_parameters(attacker_id, run_id, attacker):
-	file_path = f'../attackers/{run_id}-{attacker_id}-{"attacker" if attacker else "client"}'
+	file_path = cache_path(f'attackers/{run_id}-{attacker_id}-{"attacker" if attacker else "client"}')
 	try:
 		with open(file_path, 'rb') as f:
 			return pickle.load(f)
@@ -43,7 +44,7 @@ def get_dataset_poisoned(client_id, run_id, train):
 	else:
 		dataset_id = 'eval'
 
-	file_path = f'../attack_data/{run_id}-{client_id}-{dataset_id}'
+	file_path = cache_path(f'attack_data/{run_id}-{client_id}-{dataset_id}')
 	try:
 		with open(file_path, 'rb') as f:
 			return pickle.load(f)

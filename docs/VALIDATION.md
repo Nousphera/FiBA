@@ -30,3 +30,17 @@ for a published accuracy, ASR or detectability value.
 
 GitHub Actions is configured for Python 3.11/Linux, but its remote run has not
 been observed as part of this local validation.
+
+
+## Setup and native execution follow-up
+
+The final Python 3.11 CPU suite passed **27 tests**. Added checks cover
+prepared NPZ import/validation, wrong image shape/labels, no overwrite, content
+tampering, safe tar extraction and data-loader consumption. Public corpora were
+not downloaded in this check; generated source NPZ files were prepared with the
+public CLI and consumed by actual training. No benchmark result is inferred.
+
+Real `flwr run .` local simulations completed using pinned Flower 1.13.1 and
+Ray 2.10.0, with real client updates and saved final arrays/results. Tests also
+cover stable logical-ID sampling despite changed transport IDs and effective
+post-evaluation checkpoint weights. See [FLOWER_APP.md](FLOWER_APP.md).

@@ -1,3 +1,4 @@
+from .runtime import cache_path
 # Modified for the FiBA standalone release, 2026-10-15; see PROVENANCE.md.
 import os
 import sys
@@ -19,13 +20,13 @@ def save_object(obj, client_id, run_id, train):
 	else:
 		dataset_id = 'eval'
 
-	print(f'../attack_data/{run_id}-{client_id}-{dataset_id}')
-	os.makedirs(os.path.dirname(f'../attack_data/{run_id}-{client_id}-{dataset_id}'), exist_ok=True)
-	with open(f'../attack_data/{run_id}-{client_id}-{dataset_id}', 'wb') as outp:  # Overwrites any existing file.
+	print(cache_path(f'attack_data/{run_id}-{client_id}-{dataset_id}'))
+	os.makedirs(os.path.dirname(cache_path(f'attack_data/{run_id}-{client_id}-{dataset_id}')), exist_ok=True)
+	with open(cache_path(f'attack_data/{run_id}-{client_id}-{dataset_id}'), 'wb') as outp:  # Overwrites any existing file.
 		pickle.dump(obj, outp, pickle.HIGHEST_PROTOCOL)
 
 def get_mask(run_id):
-    file_path = f'../masks/{run_id}-attack-mask'
+    file_path = cache_path(f'masks/{run_id}-attack-mask')
     try:
         with open(file_path, 'rb') as f:
             return pickle.load(f)
@@ -38,7 +39,7 @@ def get_dataset_poisoned(client_id, run_id, train):
 	else:
 		dataset_id = 'eval'
 
-	file_path = f'../attack_data/{run_id}-{client_id}-{dataset_id}'
+	file_path = cache_path(f'attack_data/{run_id}-{client_id}-{dataset_id}')
 	try:
 		with open(file_path, 'rb') as f:
 			return pickle.load(f)
