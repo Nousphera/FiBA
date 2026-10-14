@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "Please cite the associated research paper."
+title: "On the Effectiveness of Invisible Backdoor Attacks in Federated Learning"
+type: article
+authors:
+  - name: "Mattjis Marinus"
+  - name: "Vasileios Tsouvalas"
+  - name: "Nirvana Meratnia"
+url: https://doi.org/10.1007/978-981-96-4836-8_13
