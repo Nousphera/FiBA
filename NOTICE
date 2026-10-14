@@ -1,0 +1,28 @@
+FiBA: On the Effectiveness of Invisible Backdoor Attacks in Federated Learning
+Research implementation contributors: Matthijs Marinus and Vasileios Tsouvalas.
+Paper authors: Matthijs Marinus, Vasileios Tsouvalas, and Nirvana Meratnia.
+
+Recovered from vtsouval/fl_battacks at commit
+77ee2a9208b909e9e83e24033f07a1338dc45756, originally under Apache-2.0.
+That license is preserved in licenses/FiBA-Apache-2.0.txt. The combined source
+release is distributed under GPL-3.0 because its WaNet adaptation contains
+GPL-3.0 upstream code. Individual original contributions retain their applicable
+Apache permissions; this does not relicense upstream code to Apache.
+
+WaNet code in src/fiba/wanet.py adapts Anh Nguyen and Anh Tran's
+Warping-based Backdoor Attack release. The historical GPL-3.0 source and license
+were verified at upstream commit 94453080f241053ac7c8cc4717da20806ee17e5c:
+https://github.com/VinAIResearch/Warping-based_Backdoor_Attack-release/tree/94453080f241053ac7c8cc4717da20806ee17e5c
+The recovered FiBA WaNet implementation was first committed on 2024-02-26,
+before upstream's July 2024 license change. This release uses that historical
+GPL-3.0 implementation; it does not incorporate later AGPL revisions.
+
+FoolsGold code in src/fiba/fools_gold.py adapts the implementation by Clement
+Fung, Chris J. M. Yoon, and Ivan Beschastnikh, DistributedML/FoolsGold.
+Its MIT license notice is preserved in licenses/FoolsGold-MIT.txt.
+https://github.com/DistributedML/FoolsGold
+
+BackdoorBox GPL-2.0 generator source is not included or imported by this
+package. The LIRA adapter loads an independently supplied TorchScript artifact.
+PCA/Lockdown source from upstream repositories without license grants is not
+included. See PROVENANCE.md for changes and method limitations.

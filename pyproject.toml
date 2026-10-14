@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fiba-benchmark"
+version = "0.1.0"
+description = "Recovered FiBA federated backdoor research benchmark"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = "GPL-3.0-only"
+license-files = ["LICENSE", "NOTICE", "licenses/*.txt"]
+authors = [{name = "Matthijs Marinus"}, {name = "Vasileios Tsouvalas"}]
+dependencies = [
+  "flwr==1.13.1", "torch==2.6.0", "torchvision==0.21.0",
+  "torchmetrics==1.6.1", "numpy==1.26.4", "scikit-learn==1.6.1",
+  "torchcam==0.4.0", "opencv-python-headless==4.11.0.86",
+  "matplotlib>=3.7,<4", "click<8.2",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<9", "build>=1,<2", "lpips==0.1.4"]
+metrics = ["lpips==0.1.4"]
+
+[project.scripts]
+fiba = "fiba.main:cli"
+
+[project.urls]
+Repository = "https://github.com/Nousphera/FiBA"
+Paper = "https://doi.org/10.1007/978-981-96-4836-8_13"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
