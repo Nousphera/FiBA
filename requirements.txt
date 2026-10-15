@@ -1,0 +1,4 @@
+# Training, attack metrics, tests and Flower simulation.
+-e .[test]
+flwr[simulation]==1.13.1
+ray==2.10.0

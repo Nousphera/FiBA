@@ -30,7 +30,7 @@ git clone https://github.com/Nousphera/FiBA.git
 cd FiBA
 python3.11 -m venv "$HOME/.venvs/fiba"
 source "$HOME/.venvs/fiba/bin/activate"
-python -m pip install -e '.[test]' -r requirements-simulation.txt
+python -m pip install -r requirements.txt
 python -m pip check
 ```
 
