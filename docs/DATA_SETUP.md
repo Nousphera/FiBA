@@ -4,7 +4,7 @@ Run commands from the repository root in the README's environment.
 `python scripts/prepare_data.py --help` lists datasets and modes.
 `--download` explicitly enables network acquisition; `--source` imports a safe
 NPZ or already-prepared directory. Import rejects existing destination files and
-symlinks in directory trees. `--validate` reads schema and content again and
+symlinks in directory trees. Imports validate in a temporary staging directory before publishing; failed imports leave no dataset or manifest behind. Directory imports copy only the selected dataset subtree, and auxiliary imports copy only supported media files. `--validate` reads schema and content again and
 compares the deterministic SHA-256 manifest; it never downloads. Omitting all
 three modes registers an already-present dataset after validating its schema.
 

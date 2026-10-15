@@ -67,3 +67,36 @@ def test_public_archive_extraction_blocks_traversal(tmp_path):
         with pytest.raises(tarfile.FilterError):
             source.extractall(tmp_path / "safe")
     assert not (tmp_path / "escaped").exists()
+
+
+def test_existing_manifest_cannot_leave_a_half_published_array(tmp_path):
+    source = tmp_path / "input.npz"
+    fixture(source)
+    target = tmp_path / "prepared"
+    target.mkdir()
+    saved = target / "cifar10.manifest.json"
+    saved.write_text('{"existing":true}')
+    with pytest.raises((ValueError, FileExistsError)):
+        prep.main(["--dataset", "cifar10", "--source", str(source), "--root", str(target)])
+    assert not (target / "cifar10.npz").exists()
+    assert saved.read_text() == '{"existing":true}'
+
+
+def test_array_publication_failure_rolls_back_both_files(tmp_path, monkeypatch):
+    source = tmp_path / "input.npz"
+    fixture(source)
+    target = tmp_path / "prepared"
+    real_link = prep.os.link
+    calls = []
+    def fail_manifest(source, destination):
+        calls.append(destination)
+        if str(destination).endswith(".manifest.json"):
+            raise OSError("publication failed")
+        return real_link(source, destination)
+    monkeypatch.setattr(prep.os, "link", fail_manifest)
+    with pytest.raises(OSError, match="publication failed"):
+        prep.main(["--dataset", "cifar10", "--source", str(source), "--root", str(target)])
+    assert len(calls) == 2
+    assert not (target / "cifar10.npz").exists()
+    assert not (target / "cifar10.manifest.json").exists()
+    assert not list(target.glob(".prepare-*"))

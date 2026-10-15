@@ -1,4 +1,4 @@
-> **Historical reference only.** Superseded by the root README and EXPERIMENTS.md. Do not apply the Flower patches below.
+> **Archived upstream reference.** Original instructions below are preserved for provenance and are superseded by the [maintained README](../README.md) and [experiment guide](EXPERIMENTS.md). Historical commands and directory names describe the archived layout. The dataset and framework links point to maintained equivalents; do not apply the Flower patches below.
 
 # Benchmark of Backdoor Attacks in FL Systems
 
@@ -40,7 +40,7 @@ pyenv activate fl_battacks && pip3 install -r requirements.txt
 
 ### Datasets preparation
 
-You need to set the enviromental variable 'TORCH_DATA_DIR' to direct to [datasets](./datasets/) dir. In a Linux-based system, from the root of this repo, run:
+You need to set the enviromental variable 'TORCH_DATA_DIR' to direct to [dataset setup](DATA_SETUP.md) dir. In a Linux-based system, from the root of this repo, run:
 
 ```console
 echo "export TORCH_DATA_DIR=$(realpath .)/datasets" >> ~/.bashrc && source ~/.bashrc
@@ -50,7 +50,7 @@ echo "export TORCH_DATA_DIR=$(realpath .)/datasets" >> ~/.bashrc && source ~/.ba
 
 ### Standard FedAvg training
 
-A minimal, highly configurable FL framework for fast prototyping of federated applications is provided under [fedavg](./fedavg/). The framework is based on [PyTorch](https://pytorch.org/) and [Flower](https://flower.dev/), where clients are simulated via distinct processes using [Ray](https://docs.ray.io/en/latest/index.html). From the root directory of this repo, run:
+A minimal, highly configurable FL framework for fast prototyping of federated applications is provided under [maintained federated-learning implementation](../src/fiba/). The framework is based on [PyTorch](https://pytorch.org/) and [Flower](https://flower.dev/), where clients are simulated via distinct processes using [Ray](https://docs.ray.io/en/latest/index.html). From the root directory of this repo, run:
 
 ```console
 cd ./fedavg/src
