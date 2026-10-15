@@ -1,4 +1,4 @@
-"""Run the recovered FiBA benchmark with stock Flower message serialization.
+"""Run FiBA with stock Flower message serialization.
 
 The sequential backend executes real client training and server aggregation on
 one machine. It does not measure network latency or distributed throughput.
@@ -106,7 +106,7 @@ def run(args, *, driver=None, client_id=None):
     if args.distributed and (len(attackers) != args.distribution or not attackers):
         raise ValueError('Distributed trigger requires one attacker per segment')
     if args.boost_strat and len(attackers) != 1:
-        raise ValueError('Recovered model-replacement formula supports exactly one attacker')
+        raise ValueError('Model replacement requires exactly one attacker')
     if args.avg_strategy == 'krum' and selected_count < 2 * len(attackers) + 3:
         raise ValueError('Krum requires at least 2*f+3 participating clients')
     output = args.output.resolve()
@@ -114,7 +114,7 @@ def run(args, *, driver=None, client_id=None):
     for attr in ['encoder_checkpoint','lira_generator']:
         if getattr(args,attr) is not None:
             setattr(args,attr,getattr(args,attr).resolve())
-    # Runtime cache files in the recovered code use ../ paths. Confine every
+    # Runtime cache files use ../ paths. Confine every
     # invocation to its own output/work directory; never use a source checkout.
     work = output/'work'
     work.mkdir(parents=True, exist_ok=client_id is not None)
@@ -138,7 +138,7 @@ def run(args, *, driver=None, client_id=None):
             krum_clients_to_keep=args.krum_clients_to_keep)
         parameters = server.strategy.initial_parameters
         rng = random.Random(args.seed)
-        report = {'dataset':args.dataset,'backend':'sequential-stock-flower','paper_reproduction':False,
+        report = {'dataset':args.dataset,'backend':'sequential-stock-flower',
             'config':{k:str(v) if isinstance(v,Path) else v for k,v in vars(args).items()},
             'attackers':attackers,'runtime':{'python':platform.python_version(), 'platform':platform.platform(),
             'torch':torch.__version__, 'flower':fl.__version__, 'numpy':np.__version__, 'device':args.device},'rounds':[]}

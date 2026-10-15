@@ -1,4 +1,4 @@
-"""Recovered Encoder/Decoder training with explicit configuration.
+"""Encoder/Decoder training with explicit configuration.
 Modified 2026-10-15 from fl_battacks/encoder/src/main.py; see PROVENANCE.md.
 """
 import argparse

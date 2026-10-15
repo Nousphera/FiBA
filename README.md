@@ -1,20 +1,27 @@
 # FiBA
 
 **On the Effectiveness of Invisible Backdoor Attacks in Federated Learning**
-[Paper](https://doi.org/10.1007/978-981-96-4836-8_13) · [Project page](https://nousphera.github.io/FiBA/) · [Code](https://github.com/Nousphera/FiBA) · [Source provenance](PROVENANCE.md)
+
+Mattjis Marinus, Vasileios Tsouvalas, Nirvana Meratnia<br>
+UbiSec 2024 · Proceedings published in 2025
+
+[<img src="docs/assets/icons/paper.svg" width="16" height="16" alt=""> Paper](https://doi.org/10.1007/978-981-96-4836-8_13) · [<img src="docs/assets/icons/project.svg" width="16" height="16" alt=""> Project](https://nousphera.github.io/projects/fiba/) · [<img src="docs/assets/icons/paper.svg" width="16" height="16" alt=""> Poster](https://nousphera.github.io/assets/posters/fiba-a0-landscape.pdf) · [Citation](#citation)
 
 ## Abstract
 
-Federated Learning (FL) enables collaborative training of machine learning models across multiple devices, while preserving data privacy. However, it also introduces vulnerabilities to backdoor attacks, where malicious updates can corrupt the global model. This work focuses on the largely unexplored domain of Federated invisible Backdoor Attacks (FiBAs), which use visually indistinguishable triggers to manipulate model behavior without being detected. We investigate the feasibility and effectiveness of these attacks, considering the unique challenges posed by FL, such as limited local training time and the need for model update aggregation. Our study presents a comprehensive evaluation of the attack success rate (ASR) of invisible BAs under various settings and defenses. Based on our observations, we propose a backdoor trigger hiding technique based on low model attention regions to improve attack resilience in federated settings. Our findings provide critical insights into the optimization of invisible BAs in FL and highlights the need for robust defense mechanisms to safeguard FL systems.
+Invisible backdoor attacks aim to alter a federated model’s behavior using subtle input triggers. FiBA studies how local training and model aggregation affect these attacks, evaluates attack success alongside clean accuracy, and compares aggregation defenses. It also investigates placing triggers in regions of low model attention. The implementation provides configurable attacks, defenses, client partitions, and training schedules for CIFAR-10 and CIFAR-100.
 
-*The abstract describes the published work. The maintained release has not reproduced its benchmark tables.*
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/attack-success-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/assets/readme/attack-success-light.svg">
+  <img src="docs/assets/readme/attack-success-light.svg" alt="CIFAR-10 attack success: every tested attack gains success when malicious participation increases from one to two of ten clients. Exact values appear in Results." width="100%">
+</picture>
 
-## Setup
+*Attacker participation changes the outcome. Published CIFAR-10 means from [Table 1](https://pure.tue.nl/ws/portalfiles/portal/349909542/FinalPaper.pdf#page=10); ResNet-18, 10 clients, 100 rounds, 5 local epochs, Dir(0.5), target class 5. The Results table also reports clean accuracy and the source’s ± values.*
 
-Use Python 3.11. The commands below create a dedicated virtual environment.
-Flower 1.13.1 and Ray 2.10.0 are pinned; TensorFlow projects require the
-compatible protobuf dependency range. Keep the checkout and virtual environment
-on paths without spaces for Ray subprocesses. Do not upgrade Flower independently.
+## Installation
+
+Use Python 3.11 and a dedicated virtual environment. The Flower simulation uses Flower 1.13.1 and Ray 2.10.0. Create both the checkout and environment on paths without spaces so Ray can start its workers.
 
 ```bash
 mkdir -p "$HOME/research-code" "$HOME/.venvs"
@@ -24,70 +31,115 @@ cd FiBA
 python3.11 -m venv "$HOME/.venvs/fiba"
 source "$HOME/.venvs/fiba/bin/activate"
 python -m pip install -e '.[test]' -r requirements-simulation.txt
-python -m pytest -q
+python -m pip check
 ```
 
-## Datasets
+## Data
 
 ```bash
 python scripts/prepare_data.py --dataset cifar10 --root datasets --download
 python scripts/prepare_data.py --dataset cifar10 --root datasets --validate
 ```
 
-Use `cifar100` for CIFAR-100. [Dataset setup](docs/DATA_SETUP.md) explains validated
-NPZ imports, hashes and how the files feed training. Encoder and LIRA additionally
-require trained artifacts; their training/export contracts are in the
-[experiment guide](docs/EXPERIMENTS.md). No trained artifact is bundled.
+Use `cifar100` for CIFAR-100. The [dataset guide](docs/DATA_SETUP.md) also covers
+validated NPZ imports. Encoder attacks require a trained encoder checkpoint;
+LIRA requires a TorchScript generator. Their training and export commands are
+in the [experiment guide](docs/EXPERIMENTS.md).
 
-## Run
+## Training
+
+Start a two-round local Flower simulation with two clients and one attacker,
+using generated training and evaluation images:
 
 ```bash
 flwr run .
+python scripts/check_run.py runs/flower-smoke --rounds 2
 ```
 
-The default runs two rounds on 16 generated training images and eight separate
-evaluation images, with two clients and one attacker. It invokes the actual
-recovered client/server code through Flower App messages. For CIFAR-10:
+Run the LSB700 configuration on CIFAR-10:
 
 ```bash
 flwr run . paper --run-config 'options="--dataset cifar10 --data-root datasets --num-clients 10 --num-rounds 100 --local-epochs 5 --batch-size 64 --data-split noniid --skewness .5 --participation 1 --lr .001 --attacker-fraction .1 --target-class 5 --attack steg --trigger-characters 700 --avg-strategy avg --seed 42 --device cpu --output runs/cifar10-lsb700-seed42"'
 ```
 
-For CUDA, choose `--device cuda:0` and configure Flower's GPU resources in
-`pyproject.toml`; the checked profile is CPU. Other attacks/defenses and external
-artifact requirements are in [EXPERIMENTS.md](docs/EXPERIMENTS.md). The sequential
-runner accepts the same arguments:
+The [experiment guide](docs/EXPERIMENTS.md) lists attacks, defenses, attention
+placement, and generator requirements. For CUDA, select `--device cuda:0` and
+configure Flower's GPU resources in `pyproject.toml`. The sequential runner
+accepts the same training options:
 
 ```bash
 fiba --dataset synthetic --num-clients 2 --num-rounds 2 --local-epochs 1 \
   --batch-size 4 --attacker-fraction .5 --target-class 1 --output runs/sequential
 ```
 
-## Outputs and reproducibility
+## Evaluation
 
-Every run requires a new output directory. `results.json` records configuration,
-versions, sampled logical clients, example counts and round metrics;
-`final-parameters.npz` saves the evaluated global weights. Native simulations
-preserve run-owned caches under the output directory across worker lifetimes.
-They are local simulations using a shared filesystem, not multi-host deployments.
-They do not measure network latency. Final weights are not complete resumable
-optimizer/client-state checkpoints. Synthetic metrics are execution checks only.
+Each round evaluates clean test accuracy and attack success rate (ASR). ASR is
+the fraction of triggered, non-target test samples predicted as the target
+class. Flower outputs place both values in `rounds[].metrics`; the sequential
+runner uses `rounds[].accuracy` and `rounds[].asr`. Values are fractions.
 
-The `options` run-config value is the complete runner argument string. Set the selected federation's
-`options.num-supernodes` to exactly the configured client count; mismatches fail
-explicitly. [Flower setup details](docs/FLOWER_APP.md) document identity, state,
-sampling and the tested runtime boundary.
+```bash
+python -m json.tool runs/cifar10-lsb700-seed42/results.json
+```
 
-The combined release retains its GPL-3.0-only provenance and disclosed source
-limits: four-pixel BadNet, fixed round-20 attention placement, external LIRA,
-and missing original checkpoints/evaluation logs. FoolsGold history is keyed by
-logical client identity. See [EXPERIMENTS.md](docs/EXPERIMENTS.md),
-[PROVENANCE.md](PROVENANCE.md) and [validation](docs/VALIDATION.md).
+Use a new output directory for each attack, defense, or seed. The
+[experiment guide](docs/EXPERIMENTS.md) documents the supported attack–defense
+settings and the separate Encoder/LIRA model requirements.
+
+## Configuration and outputs
+
+Use a new output directory for each run. `results.json` stores configuration,
+versions, participating clients, example counts, clean accuracy, and attack
+success rate (ASR), both expressed as fractions. ASR excludes the target class.
+`final-parameters.npz` stores evaluated model parameters and batch-normalization
+state. Optimizer and private client state are initialized for each new run.
+
+The local Flower simulation preserves client caches across worker calls and
+keys FoolsGold history by logical client identity. Set the federation's
+`options.num-supernodes` to match `--num-clients`; `options` replaces the full
+training argument string. See [Flower execution](docs/FLOWER_APP.md).
+
+Implementation settings include a four-pixel BadNet trigger, attention-mask
+extraction at round 20, and an external LIRA generator with perturbation scale
+0.1. These and the supported aggregation rules are specified in
+[EXPERIMENTS.md](docs/EXPERIMENTS.md). See [testing](docs/TESTING.md) for checks.
+
+## Results
+
+Reported CIFAR-10 / ResNet-18 results from [Table 1 of the accepted manuscript](https://pure.tue.nl/ws/portalfiles/portal/349909542/FinalPaper.pdf#page=10): ten clients, 100 rounds, five local epochs, Dirichlet concentration 0.5, target class 5. One or two malicious clients correspond to 10% or 20% attackers. Values are percentages.
+
+| Attack | Clean accuracy (10% attackers) | ASR (10% attackers) | ASR (20% attackers) |
+| --- | --- | --- | --- |
+| BadNet (visible) | 84.00 ± 0.31 | 94.96 ± 0.81 | 97.52 ± 0.40 |
+| LSB | 83.37 ± 0.33 | 41.59 ± 6.19 | 65.43 ± 3.93 |
+| WaNet | 83.33 ± 0.31 | 44.41 ± 3.50 | 82.05 ± 3.59 |
+| Encoder | 83.44 ± 0.27 | 29.44 ± 5.90 | 88.59 ± 4.01 |
+| LIRA | 83.71 ± 0.41 | 10.52 ± 1.22 | 41.57 ± 4.66 |
+
+All attacks gain ASR with greater malicious participation. The ± values are retained as reported; the manuscript does not identify their dispersion statistic.
 
 ## Citation
 
-Use [CITATION.cff](CITATION.cff) or [citation.bib](citation.bib).
+If you use this work, please cite:
+
+```bibtex
+@inproceedings{marinus2025invisible,
+  title = {On the Effectiveness of Invisible Backdoor Attacks in Federated Learning},
+  author = {Marinus, Mattjis and Tsouvalas, Vasileios and Meratnia, Nirvana},
+  booktitle = {Ubiquitous Security: 4th International Conference, UbiSec 2024, Revised Selected Papers},
+  series = {Communications in Computer and Information Science},
+  volume = {2469},
+  pages = {174--190},
+  year = {2025},
+  publisher = {Springer},
+  doi = {10.1007/978-981-96-4836-8_13},
+  url = {https://doi.org/10.1007/978-981-96-4836-8_13}
+}
+```
+
+Machine-readable metadata: [CITATION.cff](CITATION.cff) · [BibTeX](citation.bib).
 
 ## License
 
-The combined source is [GPL-3.0-only](LICENSE). Original Apache-2.0 and MIT notices remain in [NOTICE](NOTICE) and `licenses/`. The historical WaNet license and excluded third-party code are explained there. Software licensing does not relicense paper/poster assets.
+The combined source is [GPL-3.0-only](LICENSE). Apache-2.0 and MIT notices are retained in [NOTICE](NOTICE) and `licenses/`; [attribution](PROVENANCE.md) explains the applicable WaNet license. Paper and poster assets retain their own rights.

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="777.6pt" height="345.6pt" viewBox="0 0 777.6 345.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>FiBA: attacker participation and attack success</title>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>FiBA: attacker participation and attack success</dc:title>
+    <dc:date>2026-10-15T10:28:35.040800</dc:date>
+    <dc:description>Table 1 of On the Effectiveness of Invisible Backdoor Attacks in Federated Learning. Means only; the README table preserves reported plus/minus values. Source: https://pure.tue.nl/ws/portalfiles/portal/349909542/FinalPaper.pdf#page=10</dc:description>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 345.6
+L 777.6 345.6
+L 777.6 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 155.52 293.76
+L 746.496 293.76
+L 746.496 82.944
+L 155.52 82.944
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 155.52 293.76
+L 155.52 82.944
+" clip-path="url(#p669462f869)" style="fill: none; stroke: #dce2e9; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2"/>
+     <g id="text_1">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle; fill: #526171" x="155.52" y="309.878125" transform="rotate(-0 155.52 309.878125)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 262.970182 293.76
+L 262.970182 82.944
+" clip-path="url(#p669462f869)" style="fill: none; stroke: #dce2e9; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4"/>
+     <g id="text_2">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle; fill: #526171" x="262.970182" y="309.878125" transform="rotate(-0 262.970182 309.878125)">20</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 370.420364 293.76
+L 370.420364 82.944
+" clip-path="url(#p669462f869)" style="fill: none; stroke: #dce2e9; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6"/>
+     <g id="text_3">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle; fill: #526171" x="370.420364" y="309.878125" transform="rotate(-0 370.420364 309.878125)">40</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 477.870545 293.76
+L 477.870545 82.944
+" clip-path="url(#p669462f869)" style="fill: none; stroke: #dce2e9; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8"/>
+     <g id="text_4">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle; fill: #526171" x="477.870545" y="309.878125" transform="rotate(-0 477.870545 309.878125)">60</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 585.320727 293.76
+L 585.320727 82.944
+" clip-path="url(#p669462f869)" style="fill: none; stroke: #dce2e9; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10"/>
+     <g id="text_5">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle; fill: #526171" x="585.320727" y="309.878125" transform="rotate(-0 585.320727 309.878125)">80</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 692.770909 293.76
+L 692.770909 82.944
+" clip-path="url(#p669462f869)" style="fill: none; stroke: #dce2e9; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12"/>
+     <g id="text_6">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle; fill: #526171" x="692.770909" y="309.878125" transform="rotate(-0 692.770909 309.878125)">100</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle; fill: #526171" x="451.008" y="331.491875" transform="rotate(-0 451.008 331.491875)">Attack success rate (%)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_13"/>
+     <g id="text_8">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: end; fill: #1f2937" x="143.52" y="108.483349" transform="rotate(-0 143.52 108.483349)">BadNet (visible)</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_14"/>
+     <g id="text_9">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: end; fill: #1f2937" x="143.52" y="150.697206" transform="rotate(-0 143.52 150.697206)">LSB</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_15"/>
+     <g id="text_10">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: end; fill: #1f2937" x="143.52" y="192.911062" transform="rotate(-0 143.52 192.911062)">WaNet</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_16"/>
+     <g id="text_11">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: end; fill: #1f2937" x="143.52" y="235.124919" transform="rotate(-0 143.52 235.124919)">Encoder</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_17"/>
+     <g id="text_12">
+      <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: end; fill: #1f2937" x="143.52" y="277.338776" transform="rotate(-0 143.52 277.338776)">LIRA</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 155.52 92.526545
+L 665.693463 92.526545
+L 665.693463 103.924287
+L 155.52 103.924287
+z
+" clip-path="url(#p669462f869)" style="fill: #386f9f"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 155.52 134.740402
+L 378.962653 134.740402
+L 378.962653 146.138143
+L 155.52 146.138143
+z
+" clip-path="url(#p669462f869)" style="fill: #386f9f"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 155.52 176.954259
+L 394.113129 176.954259
+L 394.113129 188.352
+L 155.52 188.352
+z
+" clip-path="url(#p669462f869)" style="fill: #386f9f"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 155.52 219.168115
+L 313.686668 219.168115
+L 313.686668 230.565857
+L 155.52 230.565857
+z
+" clip-path="url(#p669462f869)" style="fill: #386f9f"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 155.52 261.381972
+L 212.038796 261.381972
+L 212.038796 272.779713
+L 155.52 272.779713
+z
+" clip-path="url(#p669462f869)" style="fill: #386f9f"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 155.52 103.924287
+L 679.447087 103.924287
+L 679.447087 115.322028
+L 155.52 115.322028
+z
+" clip-path="url(#p669462f869)" style="fill: #c17c31"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 155.52 146.138143
+L 507.04327 146.138143
+L 507.04327 157.535885
+L 155.52 157.535885
+z
+" clip-path="url(#p669462f869)" style="fill: #c17c31"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 155.52 188.352
+L 596.334371 188.352
+L 596.334371 199.749741
+L 155.52 199.749741
+z
+" clip-path="url(#p669462f869)" style="fill: #c17c31"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 155.52 230.565857
+L 631.47058 230.565857
+L 631.47058 241.963598
+L 155.52 241.963598
+z
+" clip-path="url(#p669462f869)" style="fill: #c17c31"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 155.52 272.779713
+L 378.855203 272.779713
+L 378.855203 284.177455
+L 155.52 284.177455
+z
+" clip-path="url(#p669462f869)" style="fill: #c17c31"/>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="672.140474" y="101.260729" transform="rotate(-0 672.140474 101.260729)">94.96</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="385.409664" y="143.474585" transform="rotate(-0 385.409664 143.474585)">41.59</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="400.56014" y="185.688442" transform="rotate(-0 400.56014 185.688442)">44.41</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="320.133679" y="227.902298" transform="rotate(-0 320.133679 227.902298)">29.44</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="218.485807" y="270.116155" transform="rotate(-0 218.485807 270.116155)">10.52</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="685.894097" y="112.65847" transform="rotate(-0 685.894097 112.65847)">97.52</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="513.490281" y="154.872327" transform="rotate(-0 513.490281 154.872327)">65.43</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="602.781382" y="197.086183" transform="rotate(-0 602.781382 197.086183)">82.05</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="637.917591" y="239.30004" transform="rotate(-0 637.917591 239.30004)">88.59</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="385.302214" y="281.513896" transform="rotate(-0 385.302214 281.513896)">41.57</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_13">
+     <path d="M 159.92 74.148184
+L 181.92 74.148184
+L 181.92 66.448184
+L 159.92 66.448184
+z
+" style="fill: #386f9f"/>
+    </g>
+    <g id="text_23">
+     <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="190.72" y="74.148184" transform="rotate(-0 190.72 74.148184)">1 malicious client (10%)</text>
+    </g>
+    <g id="patch_14">
+     <path d="M 345.555313 74.148184
+L 367.555313 74.148184
+L 367.555313 66.448184
+L 345.555313 66.448184
+z
+" style="fill: #c17c31"/>
+    </g>
+    <g id="text_24">
+     <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="376.355313" y="74.148184" transform="rotate(-0 376.355313 74.148184)">2 malicious clients (20%)</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_25">
+   <text style="font-weight: 700; font-size: 17px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #1f2937" x="31.104" y="20.736" transform="rotate(-0 31.104 20.736)">Invisible backdoors depend on attacker participation</text>
+  </g>
+  <g id="text_26">
+   <text style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #526171" x="31.104" y="41.472" transform="rotate(-0 31.104 41.472)">CIFAR-10 · ResNet-18 · 10 clients · 100 rounds · 5 local epochs</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p669462f869">
+   <rect x="155.52" y="82.944" width="590.976" height="210.816"/>
+  </clipPath>
+ </defs>
+</svg>

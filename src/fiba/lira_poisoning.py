@@ -2,7 +2,7 @@
 
 No BackdoorBox generator implementation or trained weights are distributed.
 The external artifact accepts [N,3,32,32] normalized images and returns noise of
-identical shape. FiBA's recovered perturbation scale is 0.1.
+identical shape. FiBA's perturbation scale is 0.1.
 """
 from pathlib import Path
 import torch
@@ -27,7 +27,7 @@ class LiraAttack:
     def embed_trigger_in_image(self, images, labels, attack_setting,
                                input_range=None, mixup=False, mask=None):
         if input_range is not None or self.distributed:
-            raise ValueError('Distributed LIRA is not part of the recovered paper experiment')
+            raise ValueError('LIRA requires a single, undistributed generator')
         poisoned = []
         with torch.inference_mode():
             for image in images:

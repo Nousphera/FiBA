@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fiba-benchmark"
 version = "0.1.0"
-description = "Recovered FiBA federated backdoor research benchmark"
+description = "Federated backdoor attacks and aggregation defenses"
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
 license = "GPL-3.0-only"

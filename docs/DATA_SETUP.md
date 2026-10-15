@@ -8,13 +8,11 @@ symlinks in directory trees. Imports validate in a temporary staging directory b
 compares the deterministic SHA-256 manifest; it never downloads. Omitting all
 three modes registers an already-present dataset after validating its schema.
 
-Prepared image files contain `train_images`, `train_labels`, `test_images` and
-`test_labels`. RGB images are uint8 NHWC (CIFAR 32x32, PathMNIST 28x28);
-FashionMNIST is uint8 NHW 28x28. Labels are integer IDs shaped N or Nx1. Shape,
-range, nonempty splits and counts are checked before copying. Training reads
-these files directly; original official loaders remain a fallback for legacy
-commands. Imported row order is preserved, including for teacher alignment.
-Small imported files are fixtures, not full benchmark datasets.
+Prepared image files contain `train_images`, `train_labels`, `test_images`, and
+`test_labels`. RGB images are uint8 NHWC with shape `(N,32,32,3)` for CIFAR.
+Labels are integer IDs shaped `(N,)` or `(N,1)`. Preparation checks shapes,
+class ranges, nonempty splits, and counts. Training reads these files directly
+and preserves their row order.
 
 ```bash
 python scripts/prepare_data.py --dataset cifar10 --root datasets --source /path/to/cifar10.npz
@@ -22,15 +20,14 @@ python scripts/prepare_data.py --dataset cifar10 --root datasets --validate
 ```
 
 A manifest records dataset name, split sizes, class count and relative file
-paths/content hashes. It does not certify an arbitrary imported file as an
-original benchmark. Retain the source publication, data license and acquisition
-record separately. A changed file requires a new destination/preparation run;
+paths/content hashes. Retain the source publication, data license, and acquisition record alongside
+this manifest. A changed file requires a new destination/preparation run;
 manifests are not silently regenerated over changed data.
 
 ## Public vision sources
 
 [CIFAR-10/100](https://www.cs.toronto.edu/~kriz/cifar.html) use the official
-train/test splits via the pinned Keras or torchvision loader. Files are saved
+train/test splits via the pinned torchvision loader. Files are saved
 as `ROOT/cifar10.npz` and `ROOT/cifar100.npz` for training:
 
 ```bash
@@ -39,11 +36,11 @@ python scripts/prepare_data.py --dataset cifar100 --root datasets --download
 ```
 
 Use `--data-root datasets` in either `fiba` or Flower's `options`. When a prepared
-NPZ is present, the recovered poisoning/partition/training code consumes it
+NPZ is present, poisoning, partitioning, and training consume it
 through the same torchvision-compatible data interface. The script validates
 all examples against the fixed 10/100-class spaces; it does not silently infer
 a smaller classifier from a subset. CIFAR files retain their original terms.
 
 Encoder pretraining and external LIRA TorchScript contracts are documented in
-[EXPERIMENTS.md](EXPERIMENTS.md). Dataset setup does not download or fabricate
-trained attack artifacts, paper checkpoints or original client partitions.
+[EXPERIMENTS.md](EXPERIMENTS.md). Train or supply those artifacts separately before selecting the corresponding
+attack. Client partitions are generated from the configured seed.
