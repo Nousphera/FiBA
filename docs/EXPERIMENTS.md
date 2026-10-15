@@ -118,5 +118,4 @@ distribution terms and use a trusted checkpoint.
 - The script runner is sequential; the Flower App uses local Ray workers with
   a shared filesystem. Network and device timing require separate measurements.
 
-Third-party attribution and the GPL-3.0 combined-source terms are documented in
-[PROVENANCE.md](../PROVENANCE.md) and [NOTICE](../NOTICE).
+Component terms are included in [licenses/THIRD_PARTY.txt](../licenses/THIRD_PARTY.txt).

@@ -78,7 +78,7 @@ def test_relative_client_paths_resolve_before_cache_workdir(tmp_path, monkeypatc
     assert captured[0].data_root == tmp_path / "datasets"
 
 
-def test_tiny_positive_participation_selects_one_client(monkeypatch):
+def test_positive_fraction_participation_selects_one_client(monkeypatch):
     from fiba.server import Server
     from flwr.common import ndarrays_to_parameters
     import numpy as np

@@ -9,7 +9,7 @@ description = "Federated backdoor attacks and aggregation defenses"
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
 license = "GPL-3.0-only"
-license-files = ["LICENSE", "NOTICE", "licenses/*.txt"]
+license-files = ["LICENSE", "licenses/*.txt"]
 authors = [{name = "Matthijs Marinus"}, {name = "Vasileios Tsouvalas"}]
 dependencies = [
   "flwr==1.13.1", "torch==2.6.0", "torchvision==0.21.0",
@@ -31,6 +31,9 @@ Paper = "https://doi.org/10.1007/978-981-96-4836-8_13"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.data-files]
+"share/fiba" = ["CITATION.cff", "citation.bib"]
 
 
 [tool.pytest.ini_options]

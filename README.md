@@ -142,4 +142,4 @@ Machine-readable metadata: [CITATION.cff](CITATION.cff) · [BibTeX](citation.bib
 
 ## License
 
-The combined source is [GPL-3.0-only](LICENSE). Apache-2.0 and MIT notices are retained in [NOTICE](NOTICE) and `licenses/`; [attribution](PROVENANCE.md) explains the applicable WaNet license. Paper and poster assets retain their own rights.
+[GPL-3.0-only](LICENSE), with component terms in [licenses/THIRD_PARTY.txt](licenses/THIRD_PARTY.txt). Paper and poster assets retain their own rights.

@@ -1,4 +1,4 @@
-# Modified for the FiBA standalone release, 2026-10-15; see PROVENANCE.md.
+# Modified for FiBA, 2026-10-15. Component terms: licenses/THIRD_PARTY.txt.
 '''
 Adaptation of Wanet Attack: Anh Nguyen and Anh Tran. Wanet – imperceptible warping-based backdoor attack, 2021
 

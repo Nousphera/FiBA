@@ -1,4 +1,4 @@
-# Modified for the FiBA standalone release, 2026-10-15; see PROVENANCE.md.
+# Modified for FiBA, 2026-10-15. Component terms: licenses/THIRD_PARTY.txt.
 '''
 Implementation based on "The Limitations of Federated Learning in Sybil Settings."
 Clement Fung, Chris J.M. Yoon, Ivan Beschastnikh.

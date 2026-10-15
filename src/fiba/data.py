@@ -1,5 +1,5 @@
 from .runtime import cache_path
-# Modified for the FiBA standalone release, 2026-10-15; see PROVENANCE.md.
+# Modified for FiBA, 2026-10-15. Component terms: licenses/THIRD_PARTY.txt.
 import os
 import sys
 import torch

@@ -1,5 +1,5 @@
 """Encoder/Decoder training with explicit configuration.
-Modified 2026-10-15 from fl_battacks/encoder/src/main.py; see PROVENANCE.md.
+FiBA trigger encoder training. Updated 2026-10-15.
 """
 import argparse
 import itertools
