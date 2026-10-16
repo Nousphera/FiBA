@@ -12,3 +12,9 @@ datasets/
 *.th
 *.npz
 .DS_Store
+data/
+raw/
+results/
+checkpoints/
+.flwr/
+*.fab

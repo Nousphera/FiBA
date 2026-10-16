@@ -4,12 +4,12 @@ FiBA implementation: Matthijs Marinus and Vasileios Tsouvalas.
 The combined source is GPL-3.0-only (see ../LICENSE). Original FiBA
 contributions retain the Apache-2.0 permissions reproduced below.
 
-WaNet (src/fiba/wanet.py): Anh Nguyen and Anh Tran, GPL-3.0-only.
+WaNet trigger (src/fiba/attacks.py): Anh Nguyen and Anh Tran, GPL-3.0-only.
 Adapted from Warping-based Backdoor Attack, revision
 94453080f241053ac7c8cc4717da20806ee17e5c.
 https://github.com/VinAIResearch/Warping-based_Backdoor_Attack-release/tree/94453080f241053ac7c8cc4717da20806ee17e5c
 
-FoolsGold (src/fiba/fools_gold.py): Clement Fung, Chris J. M. Yoon and
+FoolsGold aggregation (src/fiba/aggregation.py): Clement Fung, Chris J. M. Yoon and
 Ivan Beschastnikh, MIT. https://github.com/DistributedML/FoolsGold
 
 FiBA-Apache-2.0.txt
